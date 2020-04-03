@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/groceryFragment">
+
+    <fragment
+        android:id="@+id/groceryFragment"
+        android:name="com.hacks.societyapp.fragment.GroceryFragment"
+        android:label="Groceries"
+        tools:layout="@layout/fragment_grocery" />
+    <fragment
+        android:id="@+id/toileteriesFragment"
+        android:name="com.hacks.societyapp.fragment.ToiletriesFragment"
+        android:label="Toiletries"
+        tools:layout="@layout/fragment_toiletries" />
+    <fragment
+        android:id="@+id/beveragesFragment"
+        android:name="com.hacks.societyapp.fragment.BeveragesFragment"
+        android:label="Beverages"
+        tools:layout="@layout/fragment_beverages" >
+    </fragment>
+
+</navigation>
