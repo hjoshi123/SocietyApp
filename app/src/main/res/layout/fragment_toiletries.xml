@@ -15,6 +15,13 @@
             android:id="@+id/toiletries_slider"
             layout="@layout/slider_layout" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="16dp"
+            android:background="@null"
+            android:id="@+id/toiletries_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/progress_container"
             android:layout_width="wrap_content"
@@ -30,13 +37,5 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:padding="16dp"
-            android:background="@null"
-            android:id="@+id/toiletries_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
-
 </ScrollView>

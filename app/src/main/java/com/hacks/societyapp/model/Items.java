@@ -32,6 +32,24 @@ public class Items {
     @Expose
     private Double quantity;
 
+    public Items() {
+        // Empty Constructor
+    }
+
+    public Items(String category, Double rate, String imageUrl, String itemDescription,
+                 Double gstRate, String measurementUnit, Integer maxAllowed, String itemCode,
+                 Double quantity) {
+        this.category = category;
+        this.rate = rate;
+        this.imageUrl = imageUrl;
+        this.itemDescription = itemDescription;
+        this.gstRate = gstRate;
+        this.measurementUnit = measurementUnit;
+        this.maxAllowed = maxAllowed;
+        this.itemCode = itemCode;
+        this.quantity = quantity;
+    }
+
     public String getCategory() {
         return category;
     }

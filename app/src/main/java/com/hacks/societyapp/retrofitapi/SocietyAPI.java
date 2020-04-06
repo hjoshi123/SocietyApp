@@ -3,6 +3,7 @@ package com.hacks.societyapp.retrofitapi;
 import com.hacks.societyapp.model.Authentication;
 import com.hacks.societyapp.model.CartItems;
 import com.hacks.societyapp.model.Items;
+import com.hacks.societyapp.model.OrderResponse;
 
 import java.util.ArrayList;
 
@@ -34,4 +35,10 @@ public interface SocietyAPI {
 
     @GET("getCart")
     Call<ArrayList<CartItems>> getCart();
+
+    @POST("placeOrder")
+    Call<Authentication> placeOrder();
+
+    @GET("getOrder")
+    Call<ArrayList<OrderResponse>> getOrder();
 }

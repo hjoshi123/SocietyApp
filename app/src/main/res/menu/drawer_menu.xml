@@ -4,14 +4,17 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:icon="@drawable/rice"
             android:id="@+id/grocery"
             android:title="Groceries" />
 
         <item
+            android:icon="@drawable/toilet"
             android:id="@+id/toileteries"
             android:title="Toileteries" />
 
         <item
+            android:icon="@drawable/tea"
             android:id="@+id/beverages"
             android:title="Beverages" />
 

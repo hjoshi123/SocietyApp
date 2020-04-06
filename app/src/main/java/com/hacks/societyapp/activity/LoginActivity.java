@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hacks.societyapp.MainActivity;
 import com.hacks.societyapp.R;
 import com.hacks.societyapp.model.Authentication;
 import com.hacks.societyapp.retrofitapi.SocietyAPI;

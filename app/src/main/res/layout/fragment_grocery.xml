@@ -15,6 +15,13 @@
             android:id="@+id/grocery_slider"
             layout="@layout/slider_layout" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:padding="16dp"
+            android:background="@null"
+            android:id="@+id/grocery_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/progress_container"
             android:layout_width="wrap_content"
@@ -29,14 +36,6 @@
                 style="@style/Widget.MaterialProgressBar.ProgressBar.Large" />
 
         </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:padding="16dp"
-            android:background="@null"
-            android:id="@+id/grocery_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

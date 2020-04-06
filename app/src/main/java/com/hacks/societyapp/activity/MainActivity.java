@@ -1,9 +1,10 @@
-package com.hacks.societyapp;
+package com.hacks.societyapp.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -11,17 +12,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.hacks.societyapp.R;
 import com.hacks.societyapp.model.CartItems;
 import com.hacks.societyapp.model.Items;
 import com.hacks.societyapp.retrofitapi.SocietyAPI;
 import com.hacks.societyapp.retrofitclient.SocietyClient;
+import com.hacks.societyapp.service.CheckOrderStatusService;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,44 +50,47 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         setupNavigation();
+        startService(new Intent(this, CheckOrderStatusService.class));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        SocietyAPI societyAPI = SocietyClient.getClient(this)
-                .create(SocietyAPI.class);
-        societyAPI.getCart()
-            .enqueue(new Callback<ArrayList<CartItems>>() {
-                @Override
-                public void onResponse(@NotNull Call<ArrayList<CartItems>> call,
-                                       @NotNull Response<ArrayList<CartItems>> response) {
-                    if (response.isSuccessful()) {
-                        ArrayList<CartItems> items = response.body();
-                        if (!items.isEmpty()) {
-                            SharedPreferences prefs = getSharedPreferences("cartQuantity",
-                                    Context.MODE_PRIVATE);
-                            SharedPreferences.Editor edit = prefs.edit();
+        storeCartQuantity();
+    }
 
-                            for (CartItems item: items) {
-                                edit.putInt(item.getItemCode(), item.getCartQuantity());
-                            }
-                            edit.apply();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(@NotNull Call<ArrayList<CartItems>> call, @NotNull Throwable t) {
-
-                }
-            });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        storeCartQuantity();
     }
 
     @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.cart:
+                startActivity(new Intent(MainActivity.this, ViewCartActivity.class));
+                return true;
+            case R.id.logout:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -108,6 +116,38 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         return true;
+    }
+
+    private void storeCartQuantity() {
+        SocietyAPI societyAPI = SocietyClient.getClient(this)
+                .create(SocietyAPI.class);
+        societyAPI.getCart()
+                .enqueue(new Callback<ArrayList<CartItems>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<ArrayList<CartItems>> call,
+                                           @NotNull Response<ArrayList<CartItems>> response) {
+                        if (response.isSuccessful()) {
+                            SharedPreferences prefs = getSharedPreferences("cartQuantity",
+                                    Context.MODE_PRIVATE);
+                            SharedPreferences.Editor edit = prefs.edit();
+                            ArrayList<CartItems> items = response.body();
+                            if (!items.isEmpty()) {
+                                for (CartItems item: items) {
+                                    edit.putInt(item.getItemCode(), item.getCartQuantity());
+                                }
+                                edit.commit();
+                            } else {
+                                edit.clear();
+                                edit.commit();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<ArrayList<CartItems>> call, @NotNull Throwable t) {
+
+                    }
+                });
     }
 
     private void setupNavigation() {

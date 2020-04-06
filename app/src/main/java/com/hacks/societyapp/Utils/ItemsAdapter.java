@@ -51,11 +51,11 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
         Items item = mGroceryItems.get(position);
 
         Picasso.get().load(item.getImageUrl()).into(holder.mProductImage);
-        holder.mMaxQuantity.setText(String.valueOf(item.getQuantity()));
         holder.mProductName.setText(item.getItemDescription());
         holder.mSellingPrice.setText(String.valueOf(item.getRate()));
         holder.mGSTRate.setText("  " +item.getGstRate() + " % GST");
 
+        Timber.tag("Adapter").d("Entered here");
         SharedPreferences prefs = mContext.getSharedPreferences("cartQuantity",
                 Context.MODE_PRIVATE);
         int quantity = prefs.getInt(item.getItemCode(), 0);
@@ -69,7 +69,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mProductImage;
-        private TextView mMaxQuantity;
         private TextView mProductName;
         private TextView mSellingPrice;
         private TextView mGSTRate;
@@ -82,7 +81,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
             super(itemView);
 
             mProductImage = itemView.findViewById(R.id.product_img);
-            mMaxQuantity = itemView.findViewById(R.id.max_quantity);
             mProductName = itemView.findViewById(R.id.product_name);
             mSellingPrice = itemView.findViewById(R.id.selling_price);
             mGSTRate = itemView.findViewById(R.id.gst_rate);
