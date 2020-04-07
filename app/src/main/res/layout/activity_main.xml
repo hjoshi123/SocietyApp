@@ -35,6 +35,28 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_layout"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/footer_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:fontFamily="@font/prodsansreg"
+                android:text="Developed by Hemant Joshi" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

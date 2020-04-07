@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.hacks.societyapp.R;
 import com.hacks.societyapp.model.CartItems;
 import com.hacks.societyapp.model.Items;
+import com.hacks.societyapp.model.UserDetails;
 import com.hacks.societyapp.retrofitapi.SocietyAPI;
 import com.hacks.societyapp.retrofitclient.SocietyClient;
 import com.hacks.societyapp.service.CheckOrderStatusService;
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,12 +45,15 @@ public class MainActivity extends AppCompatActivity
     private NavController mNavController;
     private NavigationView mNavigationView;
     private Toolbar mToolbar;
+    private SocietyAPI mSocietyAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mSocietyAPI = SocietyClient.getClient(this)
+            .create(SocietyAPI.class);
         setupNavigation();
         startService(new Intent(this, CheckOrderStatusService.class));
     }
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, ViewCartActivity.class));
                 return true;
             case R.id.logout:
-
+                logout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -110,18 +115,22 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.grocery:
                 mNavController.navigate(R.id.groceryFragment);
-                break;
+                return true;
             case R.id.toileteries:
                 mNavController.navigate(R.id.toileteriesFragment);
-                break;
+                return true;
+            case R.id.beverages:
+                mNavController.navigate(R.id.beveragesFragment);
+                return true;
+            case R.id.others:
+                mNavController.navigate(R.id.others_fragment);
+                return true;
         }
-        return true;
+        return false;
     }
 
     private void storeCartQuantity() {
-        SocietyAPI societyAPI = SocietyClient.getClient(this)
-                .create(SocietyAPI.class);
-        societyAPI.getCart()
+        mSocietyAPI.getCart()
                 .enqueue(new Callback<ArrayList<CartItems>>() {
                     @Override
                     public void onResponse(@NotNull Call<ArrayList<CartItems>> call,
@@ -166,7 +175,34 @@ public class MainActivity extends AppCompatActivity
         View headerView = mNavigationView.getHeaderView(0);
         TextView userName = headerView.findViewById(R.id.username);
         TextView email = headerView.findViewById(R.id.email);
-        AppCompatImageView profile = headerView.findViewById(R.id.appCompatImageView);
+
+        mSocietyAPI.getUserDetails()
+            .enqueue(new Callback<UserDetails>() {
+                @Override
+                public void onResponse(@NotNull Call<UserDetails> call,
+                                       @NotNull Response<UserDetails> response) {
+                    if (response.isSuccessful()) {
+                        UserDetails user = response.body();
+
+                        userName.setText(user.getUsername());
+                        email.setText(user.getEmail());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDetails> call, Throwable t) {
+
+                }
+            });
     }
 
+    private void logout() {
+        SharedPreferences pref = getSharedPreferences("cookie", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        HashSet<String> cookie = new HashSet<>();
+        editor.putStringSet("cookies", cookie).commit();
+
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        finish();
+    }
 }

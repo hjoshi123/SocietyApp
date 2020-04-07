@@ -22,4 +22,9 @@
         tools:layout="@layout/fragment_beverages" >
     </fragment>
 
+    <fragment
+        android:id="@+id/others_fragment"
+        android:name="com.hacks.societyapp.fragment.OthersFragment"
+        android:label="Others" />
+
 </navigation>

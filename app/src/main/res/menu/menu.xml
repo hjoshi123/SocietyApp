@@ -6,8 +6,8 @@
         android:id="@+id/cart"
         android:icon="@drawable/ic_shopping_cart_white"
         android:orderInCategory="100"
-        android:title="Cart"
-        app:showAsAction="ifRoom" />
+        android:title=" View Cart"
+        app:showAsAction="ifRoom|withText" />
 
     <item
         android:id="@+id/logout"

@@ -52,7 +52,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
 
         Picasso.get().load(item.getImageUrl()).into(holder.mProductImage);
         holder.mProductName.setText(item.getItemDescription());
-        holder.mSellingPrice.setText(String.valueOf(item.getRate()));
+        holder.mSellingPrice.setText("₹ " + item.getRate());
         holder.mGSTRate.setText("  " +item.getGstRate() + " % GST");
 
         Timber.tag("Adapter").d("Entered here");
@@ -132,8 +132,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ViewHolder> 
                     Context.MODE_PRIVATE);
             SharedPreferences.Editor edit = prefs.edit();
 
-            mSocietyAPI.addToCart(item.getItemCode(),
-                    Integer.parseInt(mProductQuantity.getText().toString()))
+            mSocietyAPI.addToCart(item.getItemCode(), quantity)
                 .enqueue(new Callback<Authentication>() {
                     @Override
                     public void onResponse(@NotNull Call<Authentication> call,

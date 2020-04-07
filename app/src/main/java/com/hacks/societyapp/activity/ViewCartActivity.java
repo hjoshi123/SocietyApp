@@ -162,7 +162,7 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
 
                             totalPrice += (item.getCartQuantity() * item.getRate());
                         }
-                        mTotalPrice.setText("Rs " + totalPrice);
+                        mTotalPrice.setText("₹ " + totalPrice);
 
                         ItemsAdapter adapter = new ItemsAdapter(itemForDisplay,
                                 ViewCartActivity.this);

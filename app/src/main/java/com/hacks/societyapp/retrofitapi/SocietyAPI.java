@@ -4,6 +4,7 @@ import com.hacks.societyapp.model.Authentication;
 import com.hacks.societyapp.model.CartItems;
 import com.hacks.societyapp.model.Items;
 import com.hacks.societyapp.model.OrderResponse;
+import com.hacks.societyapp.model.UserDetails;
 
 import java.util.ArrayList;
 
@@ -41,4 +42,7 @@ public interface SocietyAPI {
 
     @GET("getOrder")
     Call<ArrayList<OrderResponse>> getOrder();
+
+    @GET("getUserDetails")
+    Call<UserDetails> getUserDetails();
 }

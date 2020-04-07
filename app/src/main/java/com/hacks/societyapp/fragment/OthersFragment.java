@@ -35,12 +35,12 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ToiletriesFragment extends Fragment {
+public class OthersFragment extends Fragment {
     private SocietyAPI mSocietyAPI;
-    private RecyclerView mToiletriesRecyclerView;
+    private RecyclerView mOthersRecyclerView;
     private MaterialProgressBar mToiletriesProgress;
 
-    public ToiletriesFragment() {
+    public OthersFragment() {
         // Required empty public constructor
     }
 
@@ -49,23 +49,21 @@ public class ToiletriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_toiletries, container, false);
+        View view = inflater.inflate(R.layout.fragment_others, container, false);
 
         mSocietyAPI = SocietyClient.getClient(getContext())
                 .create(SocietyAPI.class);
-        mToiletriesRecyclerView = view.findViewById(R.id.toiletries_recycler);
+        mOthersRecyclerView = view.findViewById(R.id.others_recycler);
 
         View progressView = view.findViewById(R.id.progress_container);
-        mToiletriesProgress = progressView.findViewById(R.id.toiletries_progress);
+        mToiletriesProgress = progressView.findViewById(R.id.others_progress);
 
-        View sliderContainer = view.findViewById(R.id.toiletries_slider);
+        View sliderContainer = view.findViewById(R.id.others_slider);
         SliderView sliderView = sliderContainer.findViewById(R.id.imageSlider);
 
         List<SliderItem> slider = new ArrayList<SliderItem>();
         slider.add(new SliderItem("Order Now",
                 "https://images.assetsdelivery.com/compings_v2/mangpor2004/mangpor20041712/mangpor2004171200038.jpg"));
-        slider.add(new SliderItem("Groceries",
-                "https://image.freepik.com/free-photo/colorful-food-groceries-white-countertop_8087-2209.jpg"));
 
         SliderAdapter adapter = new SliderAdapter();
         sliderView.setSliderAdapter(adapter);
@@ -86,31 +84,32 @@ public class ToiletriesFragment extends Fragment {
 
     private void getDataAndUpdate() {
         mSocietyAPI.getItems()
-            .enqueue(new Callback<ArrayList<Items>>() {
-                @Override
-                public void onResponse(@NonNull Call<ArrayList<Items>> call,
-                                       @NonNull Response<ArrayList<Items>> response) {
-                    if (response.isSuccessful()) {
-                        ArrayList<Items> items = response.body();
-                        ArrayList<Items> toiletriesItems = new ArrayList<>();
+                .enqueue(new Callback<ArrayList<Items>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<ArrayList<Items>> call,
+                                           @NonNull Response<ArrayList<Items>> response) {
+                        if (response.isSuccessful()) {
+                            ArrayList<Items> items = response.body();
+                            ArrayList<Items> toiletriesItems = new ArrayList<>();
 
-                        for (Items item: items) {
-                            if (item.getCategory().equals("Toileteries")) {
-                                toiletriesItems.add(item);
+                            for (Items item: items) {
+                                if (item.getCategory().equals("Others")) {
+                                    toiletriesItems.add(item);
+                                }
                             }
+
+                            ItemsAdapter adapter = new ItemsAdapter(toiletriesItems, getContext());
+                            mOthersRecyclerView.setAdapter(adapter);
+                            mOthersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            mToiletriesProgress.setVisibility(View.GONE);
                         }
-
-                        ItemsAdapter adapter = new ItemsAdapter(toiletriesItems, getContext());
-                        mToiletriesRecyclerView.setAdapter(adapter);
-                        mToiletriesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        mToiletriesProgress.setVisibility(View.GONE);
                     }
-                }
 
-                @Override
-                public void onFailure(Call<ArrayList<Items>> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<ArrayList<Items>> call, Throwable t) {
 
-                }
-            });
+                    }
+                });
     }
+
 }
