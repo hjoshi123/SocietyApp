@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hacks.societyapp.R;
-import com.hacks.societyapp.Utils.ItemsAdapter;
-import com.hacks.societyapp.Utils.SliderAdapter;
+import com.hacks.societyapp.Utils.adapter.ItemsAdapter;
+import com.hacks.societyapp.Utils.adapter.SliderAdapter;
 import com.hacks.societyapp.model.Items;
 import com.hacks.societyapp.model.SliderItem;
 import com.hacks.societyapp.retrofitapi.SocietyAPI;

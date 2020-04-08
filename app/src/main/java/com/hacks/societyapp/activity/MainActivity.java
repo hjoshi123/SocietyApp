@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.cart:
                 startActivity(new Intent(MainActivity.this, ViewCartActivity.class));
                 return true;
+            case R.id.view_order:
+                startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
+                return true;
             case R.id.logout:
                 logout();
                 return true;
@@ -175,6 +178,13 @@ public class MainActivity extends AppCompatActivity
         View headerView = mNavigationView.getHeaderView(0);
         TextView userName = headerView.findViewById(R.id.username);
         TextView email = headerView.findViewById(R.id.email);
+
+        View footer = mNavigationView.findViewById(R.id.footer);
+        TextView viewOrder = footer.findViewById(R.id.view_orders);
+
+        viewOrder.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this, ViewOrdersActivity.class));
+        });
 
         mSocietyAPI.getUserDetails()
             .enqueue(new Callback<UserDetails>() {

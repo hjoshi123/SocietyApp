@@ -74,7 +74,7 @@ public class OrderResponse {
         this.orderDate = orderDate;
     }
 
-    class Item {
+    public class Item {
         @SerializedName("rate")
         @Expose
         private Double rate;

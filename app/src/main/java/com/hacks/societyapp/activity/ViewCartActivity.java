@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hacks.societyapp.R;
-import com.hacks.societyapp.Utils.ItemsAdapter;
+import com.hacks.societyapp.Utils.adapter.ItemsAdapter;
 import com.hacks.societyapp.model.Authentication;
 import com.hacks.societyapp.model.CartItems;
 import com.hacks.societyapp.model.Items;
@@ -28,7 +27,6 @@ import com.hacks.societyapp.retrofitapi.SocietyAPI;
 import com.hacks.societyapp.retrofitclient.SocietyClient;
 import com.shashank.sony.fancydialoglib.Animation;
 import com.shashank.sony.fancydialoglib.FancyAlertDialog;
-import com.shashank.sony.fancydialoglib.FancyAlertDialogListener;
 import com.shashank.sony.fancydialoglib.Icon;
 
 import java.util.ArrayList;

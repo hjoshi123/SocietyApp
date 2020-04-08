@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="3">
 
             <ImageView
                 android:id="@+id/product_img"
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:orientation="vertical">
 
             <TextView
@@ -67,57 +67,39 @@
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="15sp" />
 
+
+
             <LinearLayout
                 android:id="@+id/size"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/product_name"
-                android:layout_gravity="end"
                 android:layout_toEndOf="@id/gst_rate"
                 android:background="#fff"
+                android:gravity="center"
                 android:layout_marginStart="24dp"
-                android:gravity="end"
                 android:orientation="horizontal">
 
-
-                <LinearLayout
-                    android:id="@+id/qut"
-                    android:layout_marginBottom="16dp"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:background="#00000000"
+                    android:text="Qty:"
+                    android:layout_marginStart="24dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue_grey" />
 
-                    <ImageView
-                        android:id="@+id/remove"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginEnd="8dp"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_minus_black" />
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:text="1"
+                    android:layout_marginStart="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue_grey"
+                    android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/product_qty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#00000000"
-                        android:text="1"
-                        android:textAlignment="center"
-                        android:textColor="@color/blue_grey"
-                        android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/add"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginStart="8dp"
-                        android:padding="2dp"
-                        android:src="@drawable/ic_add" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -157,22 +139,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/product_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:ellipsize="marquee"
-                android:freezesText="true"
-                android:gravity="center_vertical|center_horizontal"
-                android:src="@drawable/ic_delete_black" />
 
         </RelativeLayout>
 

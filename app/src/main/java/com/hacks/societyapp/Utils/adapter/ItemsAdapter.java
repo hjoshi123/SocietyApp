@@ -1,4 +1,4 @@
-package com.hacks.societyapp.Utils;
+package com.hacks.societyapp.Utils.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -16,6 +16,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.OrderDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.ViewOrdersActivity" />
+        </activity>
+        <activity android:name=".activity.ViewOrdersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
         <activity android:name=".activity.ViewCartActivity" />
         <activity
             android:name=".activity.LoginActivity"
@@ -42,8 +52,8 @@
             android:exported="false" />
 
         <service
-            android:enabled="true"
             android:name=".service.CheckOrderStatusService"
+            android:enabled="true"
             android:exported="false" />
     </application>
 
