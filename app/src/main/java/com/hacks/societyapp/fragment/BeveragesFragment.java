@@ -39,7 +39,7 @@ import retrofit2.Response;
  */
 public class BeveragesFragment extends Fragment {
     private SocietyAPI mSocietyAPI;
-    private RecyclerView mGroceryRecyclerView;
+    private RecyclerView mBeveragesRecyclerView;
     private MaterialProgressBar mBeveragesProgress;
 
     public BeveragesFragment() {
@@ -55,12 +55,12 @@ public class BeveragesFragment extends Fragment {
 
         mSocietyAPI = SocietyClient.getClient(getContext())
                 .create(SocietyAPI.class);
-        mGroceryRecyclerView = view.findViewById(R.id.beverages_recycler);
+        mBeveragesRecyclerView = view.findViewById(R.id.beverages_recycler);
 
         View progressView = view.findViewById(R.id.progress_container);
         mBeveragesProgress = progressView.findViewById(R.id.beverages_progress);
 
-        View sliderContainer = view.findViewById(R.id.beverages_progress);
+        View sliderContainer = view.findViewById(R.id.beverages_slider);
         SliderView sliderView = sliderContainer.findViewById(R.id.imageSlider);
 
         List<SliderItem> slider = new ArrayList<SliderItem>();
@@ -103,8 +103,8 @@ public class BeveragesFragment extends Fragment {
                             }
 
                             ItemsAdapter adapter = new ItemsAdapter(beveragesItems, getContext());
-                            mGroceryRecyclerView.setAdapter(adapter);
-                            mGroceryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            mBeveragesRecyclerView.setAdapter(adapter);
+                            mBeveragesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             mBeveragesProgress.setVisibility(View.GONE);
                         }
                     }

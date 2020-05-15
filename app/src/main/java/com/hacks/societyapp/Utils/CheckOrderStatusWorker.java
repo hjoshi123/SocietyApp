@@ -46,24 +46,27 @@ public class CheckOrderStatusWorker extends Worker {
                                 Context.MODE_PRIVATE);
 
                         ArrayList<OrderResponse> orders = response.body();
-                        for (OrderResponse order: orders) {
-                            if (order.getStatus().toLowerCase().equals("completed") &&
-                                    (prefs.getInt(order.getOrderId().toString(), 0) != 1)) {
+                        if (orders != null) {
+                            for (OrderResponse order : orders) {
+                                Timber.d(order.getStatus());
+                                if (order.getStatus() == "Completed" &&
+                                        (prefs.getInt(order.getOrderId().toString(), 0) != 1)) {
 
-                                Timber.tag("Notification call").d(order.getStatus());
-                                NotificationUtils.reminderUserAboutOrderStatus(mContext,
-                                    order.getOrderId(),
-                                    "completed. Please collect your order",
-                                    order.getOrderDate(),
-                                    order.getTotalValue());
-                            } else if (order.getStatus().toLowerCase().equals("cancelled") &&
-                                (prefs.getInt(order.getOrderId().toString(), 0) != 1)) {
+                                    Timber.tag("Notification call").d(order.getStatus());
+                                    NotificationUtils.reminderUserAboutOrderStatus(mContext,
+                                            order.getOrderId(),
+                                            "completed. Please collect your order",
+                                            order.getOrderDate(),
+                                            order.getTotalValue());
+                                } else if (order.getStatus() == "cancelled" &&
+                                        (prefs.getInt(order.getOrderId().toString(), 0) != 1)) {
 
-                                NotificationUtils.reminderUserAboutOrderStatus(mContext,
-                                    order.getOrderId(),
-                                    "cancelled. Sorry for the inconvenience caused",
-                                    order.getOrderDate(),
-                                    order.getTotalValue());
+                                    NotificationUtils.reminderUserAboutOrderStatus(mContext,
+                                            order.getOrderId(),
+                                            "cancelled. Sorry for the inconvenience caused",
+                                            order.getOrderDate(),
+                                            order.getTotalValue());
+                                }
                             }
                         }
                     }
